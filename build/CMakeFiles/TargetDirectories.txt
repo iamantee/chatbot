@@ -1,0 +1,4 @@
+/Users/Antee/projects/chatbot/build/CMakeFiles/rebuild_cache.dir
+/Users/Antee/projects/chatbot/build/CMakeFiles/edit_cache.dir
+/Users/Antee/projects/chatbot/build/CMakeFiles/http.dir
+/Users/Antee/projects/chatbot/build/CMakeFiles/md5.dir
