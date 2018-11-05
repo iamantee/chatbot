@@ -50,6 +50,11 @@ class HTTPUtil
                 boost::string_view target):
                 _host(host), _port(port), _target(target){}
 
+        bool verify_certificate(bool preverified, boost::asio::ssl::verify_context& ctx)
+        {
+            return true;
+        }
+
         /**
          * HTTP Get request
          *
@@ -73,7 +78,9 @@ class HTTPUtil
 
                 // Perform SSL handshake and verify the remote host's
                 // certificate.
-                sock.set_verify_mode(ssl::verify_peer);
+                // sock.set_verify_mode(ssl::verify_peer);
+                // sock.set_verify_callback(ssl::rfc2818_verification(_host));
+                sock.set_verify_mode(ssl::verify_none);
                 sock.set_verify_callback(ssl::rfc2818_verification(_host));
                 sock.handshake(ssl_socket::client);
 
