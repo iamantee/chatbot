@@ -33,16 +33,6 @@ class HTTPUtil
 
             @note This constructor 
         */
-        // HTTPUtil(BOOST_ASIO_STRING_VIEW_PARAM host, 
-        //         BOOST_ASIO_STRING_VIEW_PARAM port, 
-        //         boost::string_view target):
-        //         _host(host), _port(port), _target(target){}
-
-        /** Constructor
-            @param host, port, target
-
-            @note This constructor 
-        */
         HTTPUtil(std::string host, 
                 std::string port, 
                 boost::string_view target):
