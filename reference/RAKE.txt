@@ -1,0 +1,13 @@
+1. RAKE is based on our observation that keywords frequently contain multiple words but rarely contain standard punctuation or stop words
+2. Words that do carry meaning within a document are described as content bearing and are often referred to as content words.
+3. Candidate keywords: split document into word array by delimiter, then construct candidate keyword array by stop words 
+4. Keyword scores: 
+	(1) word frequency (freq(w))
+	(2) word degree (deg(w))
+	(3) ratio of degree to frequency (deg(w)/freq(w))
+5. Adjoining keywords(result is regarded as candidate keywords): 
+	(1). To find new candidate keywords, which are created as a combination of those keywords and their interior stop words, RAKE looks for pairs of keywords that adjoin one another at least twice in the same document and in the same order.
+	(2). The score for the new keyword is the sum of its member keyword scores.
+	(3). RAKE is greedy for longer phrase
+	
+6. Benchmark evaluation(precision and efficiency): by stoplist 
