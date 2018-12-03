@@ -1,0 +1,15 @@
+#include <array>
+
+#ifndef CALCULATION_H
+#define CALCULATION_H
+
+using namespace calculation;
+
+
+/** @note struct vector
+ */
+struct vector {
+  
+};
+
+#endif
