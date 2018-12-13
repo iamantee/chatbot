@@ -3,10 +3,15 @@
 #ifndef CALCULATION_H
 #define CALCULATION_H
 
-/** @note struct vector
+namespace calculation {
+
+/** @note struct matrix
  */
-struct vector {
-  
+struct matrix {
+  std::vector<std::vector<double> > data;
+  int row_count;
+  int column_count;
 };
 
+} // namespace calculation
 #endif

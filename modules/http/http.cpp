@@ -1,12 +1,13 @@
+#include <cstdlib>
+#include <iostream>
+#include <string>
+
 #include "boost/beast/core.hpp"
 #include "boost/asio/ssl.hpp"
 #include "boost/beast/http.hpp"
 #include "boost/beast/version.hpp"
 #include "boost/asio/connect.hpp"
 #include "boost/asio/ip/tcp.hpp"
-#include <cstdlib>
-#include <iostream>
-#include <string>
 
 using tcp = boost::asio::ip::tcp;       // from "boost/asio/ip/tcp.hpp
 namespace ssl = boost::asio::ssl;       // from "boost/asio/ssl.hpp"
@@ -60,8 +61,11 @@ class HTTPUtil
                 boost::asio::io_context io_context;
                 ssl_socket sock(io_context, ctx);
                 tcp::resolver resolver(io_context);
+
                 tcp::resolver::query query(_host, "https");
+
                 boost::asio::connect(sock.lowest_layer(), resolver.resolve(query));
+		std::cout << "end to connect..." << std::endl;
                 sock.lowest_layer().set_option(tcp::no_delay(true));
 
                 // Perform SSL handshake and verify the remote host's
@@ -69,16 +73,21 @@ class HTTPUtil
                 // sock.set_verify_mode(ssl::verify_peer);
                 sock.set_verify_mode(ssl::verify_none);
                 sock.set_verify_callback(ssl::rfc2818_verification(_host));
+		std::cout << "begin to handshake..." << std::endl;
                 sock.handshake(ssl_socket::client);
-
+		std::cout << "end to handshake..." << std::endl;
+		
                 // Set up an HTTP GET request message
+		std::cout << "beging to construct http request..." << std::endl;
                 http::request<http::string_body> req{http::verb::get, _target, _version};
                 req.set(http::field::host, _host);
                 req.set(http::field::user_agent, BOOST_BEAST_VERSION_STRING);
 
                 // Send the HTTP request to the remote host
+		std::cout << "begin to send http request..." << std::endl;
                 http::write(sock, req);
-
+		std::cout << "ended sending http request..." << std::endl;
+		
                 // This buffer is used for reading and must be persisted
                 boost::beast::flat_buffer buffer;
 
@@ -114,6 +123,7 @@ class HTTPUtil
 
 int main(int argc, char** argv)
 {
+  std::cout << "main func..." << std::endl;
     // Check command line arguments.
     if(argc != 4 && argc != 5)
     {
